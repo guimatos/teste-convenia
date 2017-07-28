@@ -20,3 +20,7 @@ $app->get('/', function () use ($app) {
 $app->get('/key', function() {
     return str_random(32);
 });
+
+/*Seller methods */
+$app->post('/sellers', 'SellersController@store');
+$app->get('/sellers', 'SellersController@get');

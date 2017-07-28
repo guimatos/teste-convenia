@@ -4,12 +4,12 @@ use App\Http\Repositories\Eloquent\Repository;
 /**
 *
 */
-class ExampleRepository extends Repository
+class SellerRepository extends Repository
 {
 
     function model()
     {
-        return 'App\Models\Model';
+        return 'App\Models\Seller';
     }
 
 }
