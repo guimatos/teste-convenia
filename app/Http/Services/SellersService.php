@@ -59,7 +59,7 @@ class SellersService
   {
       try
       {
-          return response()->json($this->sellerRepository->all());
+          return response()->json($this->sellerRepository->getSellersWithSales());
       }
       catch (\Exception $e)
       {
