@@ -28,4 +28,14 @@ class SellersController extends Controller
       return  $this->sellersService->store($request->all());
     }
 
+    public function newSale($id, Request $request)
+    {
+      return  $this->sellersService->newSale($id, $request->all());
+    }
+
+    public function getSellerSales($id)
+    {
+      return  $this->sellersService->getSellerSales($id);
+    }
+
 }

@@ -24,3 +24,5 @@ $app->get('/key', function() {
 /*Seller methods */
 $app->post('/sellers', 'SellersController@store');
 $app->get('/sellers', 'SellersController@get');
+$app->post('/sellers/{id}/sale', 'SellersController@newSale');
+$app->get('/sellers/{id}/sale', 'SellersController@getSellerSales');

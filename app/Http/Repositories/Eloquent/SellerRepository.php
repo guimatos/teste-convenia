@@ -12,4 +12,24 @@ class SellerRepository extends Repository
         return 'App\Models\Seller';
     }
 
+    public function getSellerSale($sellerId, $saleId)
+    {
+        $this->makeModel();
+        return $this->model
+                    ->join('sales', 'sellers.id', '=', 'sales.seller_id')
+                    ->select('sellers.id as id', 'sellers.name', 'sellers.email', 'sales.amount', \DB::raw('(sales.amount*0.085) as commission'), 'sales.created_at')
+                    ->where('sellers.id', '=', $sellerId)
+                    ->where('sales.id', '=', $saleId)
+                    ->first();
+    }
+
+    public function getSellerSales($sellerId)
+    {
+        $this->makeModel();
+        return $this->model
+                    ->join('sales', 'sellers.id', '=', 'sales.seller_id')
+                    ->select('sellers.id as id', 'sellers.name', 'sellers.email', 'sales.amount', \DB::raw('(sales.amount*0.085) as commission'), 'sales.created_at')
+                    ->where('sellers.id', '=', $sellerId)
+                    ->get();
+    }
 }
