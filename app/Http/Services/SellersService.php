@@ -6,6 +6,8 @@ use App\Http\Repositories\Eloquent\SellerRepository;
 use App\Http\Repositories\Eloquent\SaleRepository;
 
 use Validator;
+use Queue;
+use App\Jobs\EmailQueue;
 
 class SellersService
 {
@@ -126,6 +128,18 @@ class SellersService
           );
           return response()->json($errorResponse, 400);
       }
+  }
+
+  public function sendEmail()
+  {
+      $data = array(
+        'title' => 'RESUMO DE VENDAS',
+        'subject' => 'RESUMO DE VENDAS',
+        'email' => 'guilhermef_@outlook.com',
+        'message' => 'Teste',
+        'comission' => 20,
+        'amount' => 19,
+      );
 
   }
 }
