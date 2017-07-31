@@ -19,7 +19,7 @@ class SellerRepository extends Repository
                     ->leftJoin('sales', 'sellers.id', '=', 'sales.seller_id')
                     ->select('sellers.id', 'sellers.name', 'sellers.email', \DB::raw('sum(sales.amount * 0.085) as comission'))
                     ->groupBy('sellers.id')
-                    ->get();
+                    ->paginate();
     }
 
     public function getSellerSale($sellerId, $saleId)
@@ -40,6 +40,6 @@ class SellerRepository extends Repository
                     ->join('sales', 'sellers.id', '=', 'sales.seller_id')
                     ->select('sellers.id as id', 'sellers.name', 'sellers.email', 'sales.amount', \DB::raw('(sales.amount*0.085) as commission'), 'sales.created_at')
                     ->where('sellers.id', '=', $sellerId)
-                    ->get();
+                    ->paginate();
     }
 }
