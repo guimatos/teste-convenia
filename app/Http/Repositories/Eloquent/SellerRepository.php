@@ -22,6 +22,16 @@ class SellerRepository extends Repository
                     ->paginate();
     }
 
+    public function getSellersWithSalesByDate()
+    {
+        $this->makeModel();
+        return $this->model
+                    ->leftJoin('sales', 'sellers.id', '=', 'sales.seller_id')
+                    ->select('sellers.id', 'sellers.name', 'sellers.email', \DB::raw('sum(sales.amount * 0.085) as comission'))
+                    ->groupBy('sellers.id')
+                    ->get();
+    }
+
     public function getSellerSale($sellerId, $saleId)
     {
         $this->makeModel();
