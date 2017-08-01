@@ -1,17 +1,25 @@
 <?php
 namespace App\Http\Repositories\Eloquent;
 use App\Http\Repositories\Eloquent\Repository;
-/**
-*
-*/
+
 class SellerRepository extends Repository
 {
 
+    /**
+     * Instance the Seller Model
+     *
+     * @return void
+    */
     function model()
     {
         return 'App\Models\Seller';
     }
 
+    /**
+     * Get All Sellers With Sales.
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    */
     public function getSellersWithSales()
     {
         $this->makeModel();
@@ -22,6 +30,11 @@ class SellerRepository extends Repository
                     ->paginate();
     }
 
+    /**
+     * Create a new SellerRepository and SaleRepository instances.
+     *
+     * @return array
+    */
     public function getSellersWithSalesByDate()
     {
         $this->makeModel();
@@ -32,6 +45,13 @@ class SellerRepository extends Repository
                     ->get();
     }
 
+    /**
+     * Create a new SellerRepository and SaleRepository instances.
+     *
+     * @param  int  $sellerId
+     * @param  int  $saleId
+     * @return array
+    */
     public function getSellerSale($sellerId, $saleId)
     {
         $this->makeModel();
@@ -43,6 +63,12 @@ class SellerRepository extends Repository
                     ->first();
     }
 
+    /**
+     * Create a new SellerRepository and SaleRepository instances.
+     *
+     * @param  int  $sellerId
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    */
     public function getSellerSales($sellerId)
     {
         $this->makeModel();

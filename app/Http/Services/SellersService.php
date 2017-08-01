@@ -6,21 +6,41 @@ use App\Http\Repositories\Eloquent\SellerRepository;
 use App\Http\Repositories\Eloquent\SaleRepository;
 
 use Validator;
-use Queue;
-use App\Jobs\EmailQueue;
 
 class SellersService
 {
-
+  /**
+   * The SellerRepository implementation.
+   *
+   * @var \App\Http\Repositories\Eloquent\SellerRepository
+  */
   private $sellerRepository;
+  /**
+   * The SellerRepository implementation.
+   *
+   * @var \App\Http\Repositories\Eloquent\SaleRepository
+  */
   private $saleRepository;
 
+  /**
+   * Create a new SellerRepository and SaleRepository instances.
+   *
+   * @param  \App\Http\Repositories\Eloquent\SellerRepository  $sellerRepository
+   * @param  \App\Http\Repositories\Eloquent\SaleRepository  $saleRepository
+   * @return void
+  */
   function __construct(SellerRepository $sellerRepository, SaleRepository $saleRepository)
   {
       $this->sellerRepository = $sellerRepository;
       $this->saleRepository = $saleRepository;
   }
 
+  /**
+   * Create a new Seller.
+   *
+   * @param  array  $data
+   * @return array
+  */
   public function store($data)
   {
       try
@@ -57,6 +77,11 @@ class SellersService
 
   }
 
+  /**
+   * Get all sellers with sales.
+   *
+   * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+  */
   public function get()
   {
       try
@@ -75,6 +100,13 @@ class SellersService
 
   }
 
+  /**
+   * Create a new Sale for a Seller.
+   *
+   * @param  int  $sellerId
+   * @param  array  $data
+   * @return array
+  */
   public function newSale($sellerId, $data)
   {
       try
@@ -113,6 +145,12 @@ class SellersService
       }
   }
 
+  /**
+   * Get all the sales of a Seller.
+   *
+   * @param  int  $sellerId
+   * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+  */
   public function getSellerSales($sellerId)
   {
       try
@@ -128,18 +166,5 @@ class SellersService
           );
           return response()->json($errorResponse, 400);
       }
-  }
-
-  public function sendEmail()
-  {
-      $data = array(
-        'title' => 'RESUMO DE VENDAS',
-        'subject' => 'RESUMO DE VENDAS',
-        'email' => 'guilhermef_@outlook.com',
-        'message' => 'Teste',
-        'comission' => 20,
-        'amount' => 19,
-      );
-
   }
 }
